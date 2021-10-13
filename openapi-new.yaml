@@ -1481,26 +1481,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /address/search:
-    get:
-      tags:
-        - other
-      summary: Search for addresses
-      operationId: searchAddresses
-      parameters: []
-      responses:
-        '200':
-          description: An array of Addresses
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Address'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
   /organization:
     post:
       tags:
@@ -1860,104 +1840,6 @@ paths:
       responses:
         '200':
           description: Expected response to a valid request
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /product/search:
-    get:
-      tags:
-        - product
-      summary: Search for products
-      operationId: searchProducts
-      parameters: []
-      responses:
-        '200':
-          description: An array of Organizations
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Products'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /product/{productId}:
-    get:
-      tags:
-        - product
-      summary: Get product details
-      operationId: productById
-      parameters:
-        - name: productId
-          in: path
-          required: true
-          description: The id of the product
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Expected response to a valid request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Product'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /product/{productId}/availability:
-    get:
-      tags:
-        - product
-      summary: Get product availability
-      operationId: productAvailability
-      parameters:
-        - name: productId
-          in: path
-          required: true
-          description: The id of the product
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Expected response to a valid request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Product'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /product/{productId}/recommendation:
-    get:
-      tags:
-        - product
-      summary: Get product recommendations
-      operationId: productRecommendations
-      parameters:
-        - name: productId
-          in: path
-          required: true
-          description: The id of the product
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Expected response to a valid request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Products'
         default:
           description: unexpected error
           content:
