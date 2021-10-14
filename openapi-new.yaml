@@ -11,8 +11,6 @@ tags:
     description: Operations related to order
   - name: organization
     description: Operations for organization management
-  - name: product
-    description: Operations for product data
   - name: other
     description: Other operations
 paths:
@@ -1983,13 +1981,6 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Promotion'
-    Product:
-      type: object
-      properties: {}
-    Products:
-      type: array
-      items:
-        $ref: '#/components/schemas/Product'
     DeliveryOption:
       type: object
       properties: {}
