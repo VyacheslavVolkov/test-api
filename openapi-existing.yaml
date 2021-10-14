@@ -5,12 +5,6 @@ info:
 servers:
   - url: http://screwfix.com/v1/
 tags:
-  - name: customer
-    description: Customer related operation
-  - name: customerOrder
-    description: Operations related to order
-  - name: organization
-    description: Operations for organization management
   - name: product
     description: Operations for product data
   - name: other
@@ -136,13 +130,6 @@ paths:
                 $ref: '#/components/schemas/Error'
 components:
   schemas:
-    Customer:
-      type: object
-      properties: {}
-    Customers:
-      type: array
-      items:
-        $ref: '#/components/schemas/Customer'
     Address:
       type: object
       properties: {}
@@ -150,51 +137,6 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Address'
-    Card:
-      type: object
-      properties: {}
-    Note:
-      type: object
-      properties: {}
-    Notes:
-      type: array
-      items:
-        $ref: '#/components/schemas/Note'
-    Organization:
-      type: object
-      properties: {}
-    Organizations:
-      type: array
-      items:
-        $ref: '#/components/schemas/Organization'
-    Credit:
-      type: object
-      properties: {}
-    Credits:
-      type: array
-      items:
-        $ref: '#/components/schemas/Credit'
-    Order:
-      type: object
-      properties: {}
-    Orders:
-      type: array
-      items:
-        $ref: '#/components/schemas/Order'
-    Return:
-      type: object
-      properties: {}
-    Returns:
-      type: array
-      items:
-        $ref: '#/components/schemas/Return'
-    Promotion:
-      type: object
-      properties: {}
-    Promotions:
-      type: array
-      items:
-        $ref: '#/components/schemas/Promotion'
     Product:
       type: object
       properties: {}
@@ -202,27 +144,6 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Product'
-    DeliveryOption:
-      type: object
-      properties: {}
-    DeliveryOptions:
-      type: array
-      items:
-        $ref: '#/components/schemas/DeliveryOption'
-    Branch:
-      type: object
-      properties: {}
-    Branches:
-      type: array
-      items:
-        $ref: '#/components/schemas/Branch'
-    ShippingMethod:
-      type: object
-      properties: {}
-    ShippingMethods:
-      type: array
-      items:
-        $ref: '#/components/schemas/ShippingMethod'
     Error:
       type: object
       required:
