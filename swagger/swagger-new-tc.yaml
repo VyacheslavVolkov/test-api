@@ -1,0 +1,169 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Customer Centre
+servers:
+  - url: http://screwfix.com/v1/
+tags:
+  - name: customerOrder
+    description: Operations related to order
+  - name: other
+    description: Other operations
+  - name: tradeCounter
+    description: Trade counter management
+paths:
+  /customer/{customerId}/order/spendings:
+    get:
+      tags:
+        - customerOrder
+      summary: Get order spending for user
+      operationId: getCustomerOrderSpending
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Total amount spent
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/{customerId}/order/{orderId}/collectionVerification:
+    put:
+      tags:
+        - customerOrder
+      summary: Check order collection
+      operationId: verifyOrderCollection
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /validateSupervisorCode:
+    post:
+      tags:
+        - other
+      summary: Validate supervisor code
+      operationId: validateSupervisorCode
+      parameters: []
+      responses:
+        '200':
+          description: Validation status
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /tradeCounter/tillConfiguration:
+    get:
+      tags:
+        - tradeCounter
+      summary: Get till configurations
+      operationId: getTcTillConfiguration
+      parameters: []
+      responses:
+        '200':
+          description: An array of Till Configurations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TillConfigurations'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - tradeCounter
+      summary: Update till configurations
+      operationId: updateTillConfiguration
+      parameters: []
+      responses:
+        '200':
+          description: Updated Till Configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TillConfiguration'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /tradeCounter/report:
+    get:
+      tags:
+        - tradeCounter
+      summary: Get trade counter report
+      operationId: getTcReport
+      parameters: []
+      responses:
+        '200':
+          description: Trade counter report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Order:
+      type: object
+      properties: {}
+    TillConfiguration:
+      type: object
+      properties: {}
+    TillConfigurations:
+      type: array
+      items:
+        $ref: '#/components/schemas/TillConfiguration'
+    Report:
+      type: object
+      properties: {}
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string

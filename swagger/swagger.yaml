@@ -11,13 +11,24 @@ tags:
     description: Operations related to order
   - name: organization
     description: Operations for organization management
-  - name: other
+  - name: product
+    description: Operations for product data
+  - name: cc
+    description: Other operations
+  - name: tc
+    description: Other operations
+  - name: new
+    description: Other operations
+  - name: exists
     description: Other operations
 paths:
   /customer:
     post:
       tags:
         - customer
+        - cc
+        - tc
+        - new
       summary: Create customer
       operationId: createCustomer
       parameters: []
@@ -38,6 +49,9 @@ paths:
     get:
       tags:
         - customer
+        - cc
+        - tc
+        - new
       summary: Search for customers
       operationId: searchCustomers
       parameters: []
@@ -58,6 +72,9 @@ paths:
     get:
       tags:
         - customer
+        - cc
+        - tc
+        - new
       summary: Get customer details
       operationId: customerById
       parameters:
@@ -83,6 +100,9 @@ paths:
     put:
       tags:
         - customer
+        - cc
+        - tc
+        - new
       summary: Update customer details
       operationId: updateCustomer
       parameters:
@@ -109,6 +129,9 @@ paths:
     post:
       tags:
         - customer
+        - cc
+        - tc
+        - new
       summary: Create address for user
       operationId: createCustomerAddress
       parameters:
@@ -135,6 +158,9 @@ paths:
     get:
       tags:
         - customer
+        - cc
+        - tc
+        - new
       summary: Get user address details
       operationId: getCustomerAddress
       parameters:
@@ -166,6 +192,9 @@ paths:
     put:
       tags:
         - customer
+        - cc
+        - tc
+        - new
       summary: Update address for user
       operationId: updateCustomerAddress
       parameters:
@@ -197,6 +226,8 @@ paths:
     delete:
       tags:
         - customer
+        - cc
+        - new
       summary: Delete address from user
       operationId: deleteCustomerAddress
       parameters:
@@ -225,6 +256,9 @@ paths:
     post:
       tags:
         - customer
+        - cc
+        - tc
+        - new
       summary: Create card for user
       operationId: createCustomerCard
       parameters:
@@ -251,6 +285,8 @@ paths:
     get:
       tags:
         - customer
+        - cc
+        - new
       summary: Get user card details
       operationId: getCustomerCard
       parameters:
@@ -282,6 +318,8 @@ paths:
     put:
       tags:
         - customer
+        - cc
+        - new
       summary: Update card for user
       operationId: updateCustomerCard
       parameters:
@@ -313,6 +351,8 @@ paths:
     delete:
       tags:
         - customer
+        - cc
+        - new
       summary: Delete card from user
       operationId: deleteCustomerCard
       parameters:
@@ -341,6 +381,8 @@ paths:
     get:
       tags:
         - customer
+        - cc
+        - new
       summary: Get card expiration
       operationId: getCardExpiration
       parameters:
@@ -373,6 +415,8 @@ paths:
     get:
       tags:
         - customer
+        - cc
+        - new
       summary: Get notes for user
       operationId: getCustomerNotes
       parameters:
@@ -398,6 +442,8 @@ paths:
     post:
       tags:
         - customer
+        - cc
+        - new
       summary: Create note for user
       operationId: createCustomerNote
       parameters:
@@ -424,6 +470,8 @@ paths:
     put:
       tags:
         - customer
+        - cc
+        - new
       summary: Update note for user
       operationId: updateCustomerNote
       parameters:
@@ -455,6 +503,8 @@ paths:
     delete:
       tags:
         - customer
+        - cc
+        - new
       summary: Delete note from user
       operationId: deleteCustomerNote
       parameters:
@@ -483,6 +533,8 @@ paths:
     get:
       tags:
         - customer
+        - cc
+        - new
       summary: Get credits for user
       operationId: getCustomerCredits
       parameters:
@@ -508,6 +560,8 @@ paths:
     post:
       tags:
         - customer
+        - cc
+        - new
       summary: Create credit for user
       operationId: createCustomerCredit
       parameters:
@@ -534,6 +588,8 @@ paths:
     put:
       tags:
         - customer
+        - cc
+        - new
       summary: Update credit for user
       operationId: updateCustomerCredit
       parameters:
@@ -565,6 +621,8 @@ paths:
     delete:
       tags:
         - customer
+        - cc
+        - new
       summary: Delete credit from user
       operationId: deleteCustomerCredit
       parameters:
@@ -593,6 +651,8 @@ paths:
     get:
       tags:
         - customer
+        - cc
+        - new
       summary: Get organizations for user
       operationId: getCustomerOrganizations
       parameters:
@@ -619,6 +679,8 @@ paths:
     delete:
       tags:
         - customer
+        - cc
+        - new
       summary: Delete organization from user
       operationId: deleteCustomerOrganization
       parameters:
@@ -647,6 +709,9 @@ paths:
     get:
       tags:
         - customerOrder
+        - cc
+        - tc
+        - new
       summary: Get orders for user
       operationId: getCustomerOrders
       parameters:
@@ -672,6 +737,9 @@ paths:
     post:
       tags:
         - customerOrder
+        - cc
+        - tc
+        - new
       summary: Create order for user
       operationId: createCustomerOrder
       parameters:
@@ -694,10 +762,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /customer/{customerId}/order/spendings:
+    get:
+      tags:
+        - customerOrder
+        - tc
+        - new
+      summary: Get order spending for user
+      operationId: getCustomerOrderSpending
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Total amount spent
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /customer/{customerId}/order/{orderId}:
     get:
       tags:
         - customerOrder
+        - cc
+        - tc
+        - new
       summary: Get order for user
       operationId: getCustomerOrder
       parameters:
@@ -729,6 +824,9 @@ paths:
     put:
       tags:
         - customerOrder
+        - cc
+        - tc
+        - new
       summary: Update order for user
       operationId: updateCustomerOrder
       parameters:
@@ -761,8 +859,44 @@ paths:
     put:
       tags:
         - customerOrder
+        - cc
+        - new
       summary: Update customer for order
       operationId: changeCustomerForOrder
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/{customerId}/order/{orderId}/collectionVerification:
+    put:
+      tags:
+        - customerOrder
+        - tc
+        - new
+      summary: Check order collection
+      operationId: verifyOrderCollection
       parameters:
         - name: customerId
           in: path
@@ -793,6 +927,8 @@ paths:
     put:
       tags:
         - customerOrder
+        - cc
+        - new
       summary: Release order
       operationId: releaseOrder
       parameters:
@@ -825,6 +961,9 @@ paths:
     put:
       tags:
         - customerOrder
+        - cc
+        - tc
+        - new
       summary: Submit order
       operationId: submitOrder
       parameters:
@@ -857,6 +996,9 @@ paths:
     put:
       tags:
         - customerOrder
+        - cc
+        - tc
+        - new
       summary: Release stock for order order
       operationId: releaseOrderStock
       parameters:
@@ -889,6 +1031,9 @@ paths:
     put:
       tags:
         - customerOrder
+        - cc
+        - tc
+        - new
       summary: Reserve order stock
       operationId: reserveOrderStock
       parameters:
@@ -921,6 +1066,9 @@ paths:
     post:
       tags:
         - customerOrder
+        - cc
+        - tc
+        - new
       summary: Select address for order
       operationId: selectOrderAddress
       parameters:
@@ -953,6 +1101,9 @@ paths:
     post:
       tags:
         - customerOrder
+        - cc
+        - tc
+        - new
       summary: Select card for order
       operationId: selectOrderCard
       parameters:
@@ -985,6 +1136,8 @@ paths:
     get:
       tags:
         - customerOrder
+        - cc
+        - new
       summary: Get notes for order
       operationId: getOrderNotes
       parameters:
@@ -1016,6 +1169,8 @@ paths:
     post:
       tags:
         - customerOrder
+        - cc
+        - new
       summary: Create note for order
       operationId: createOrderNote
       parameters:
@@ -1048,6 +1203,8 @@ paths:
     put:
       tags:
         - customerOrder
+        - cc
+        - new
       summary: Update note for order
       operationId: updateOrderNote
       parameters:
@@ -1085,6 +1242,8 @@ paths:
     delete:
       tags:
         - customerOrder
+        - cc
+        - new
       summary: Delete note from order
       operationId: deleteOrderNote
       parameters:
@@ -1119,6 +1278,9 @@ paths:
     get:
       tags:
         - customerOrder
+        - cc
+        - tc
+        - new
       summary: Get promotions for order
       operationId: getOrderPromotions
       parameters:
@@ -1150,6 +1312,9 @@ paths:
     post:
       tags:
         - customerOrder
+        - cc
+        - tc
+        - new
       summary: Add promotion for order
       operationId: addOrderPromotion
       parameters:
@@ -1182,6 +1347,9 @@ paths:
     delete:
       tags:
         - customerOrder
+        - cc
+        - tc
+        - new
       summary: Delete promotion from order
       operationId: deleteOrderPromotion
       parameters:
@@ -1216,6 +1384,9 @@ paths:
     get:
       tags:
         - customerOrder
+        - cc
+        - tc
+        - new
       summary: Get returns for order
       operationId: getOrderReturns
       parameters:
@@ -1247,6 +1418,9 @@ paths:
     post:
       tags:
         - customerOrder
+        - cc
+        - tc
+        - new
       summary: Add return to order
       operationId: addOrderReturn
       parameters:
@@ -1279,6 +1453,9 @@ paths:
     get:
       tags:
         - customerOrder
+        - cc
+        - tc
+        - new
       summary: Get return details
       operationId: getOrderReturn
       parameters:
@@ -1316,6 +1493,9 @@ paths:
     post:
       tags:
         - customerOrder
+        - cc
+        - tc
+        - new
       summary: Update return
       operationId: updateOrderReturn
       parameters:
@@ -1353,6 +1533,9 @@ paths:
     delete:
       tags:
         - customerOrder
+        - cc
+        - tc
+        - new
       summary: Delete return from order
       operationId: deleteOrderReturn
       parameters:
@@ -1387,6 +1570,9 @@ paths:
     post:
       tags:
         - customerOrder
+        - cc
+        - tc
+        - new
       summary: Select address for return
       operationId: selectReturnAddress
       parameters:
@@ -1425,6 +1611,9 @@ paths:
     post:
       tags:
         - customerOrder
+        - cc
+        - tc
+        - new
       summary: Complete return
       operationId: completeReturn
       parameters:
@@ -1463,7 +1652,10 @@ paths:
     get:
       tags:
         - other
-      summary: Search for orders
+        - cc
+        - tc
+        - new
+      summary: Search for orders (include kiosk orders)
       operationId: searchOrders
       parameters: []
       responses:
@@ -1479,10 +1671,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /address/search:
+    get:
+      tags:
+        - other
+        - cc
+        - tc
+        - exists
+      summary: Search for addresses
+      operationId: searchAddresses
+      parameters: []
+      responses:
+        '200':
+          description: An array of Addresses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /organization:
     post:
       tags:
         - organization
+        - cc
+        - new
       summary: Create organization
       operationId: createOrganization
       parameters: []
@@ -1503,6 +1720,8 @@ paths:
     get:
       tags:
         - organization
+        - cc
+        - new
       summary: Search for organizations
       operationId: searchOrganizations
       parameters: []
@@ -1523,6 +1742,8 @@ paths:
     get:
       tags:
         - organization
+        - cc
+        - new
       summary: Get organization details
       operationId: organizationById
       parameters:
@@ -1548,6 +1769,8 @@ paths:
     put:
       tags:
         - organization
+        - cc
+        - new
       summary: Update organization details
       operationId: updateOrganization
       parameters:
@@ -1573,6 +1796,8 @@ paths:
     delete:
       tags:
         - organization
+        - cc
+        - new
       summary: Remove organization
       operationId: removeOrganization
       parameters:
@@ -1595,6 +1820,8 @@ paths:
     post:
       tags:
         - organization
+        - cc
+        - new
       summary: Create address for organization
       operationId: createOrganizationAddress
       parameters:
@@ -1621,6 +1848,8 @@ paths:
     get:
       tags:
         - organization
+        - cc
+        - new
       summary: Get organization address details
       operationId: getOrganizationAddress
       parameters:
@@ -1652,6 +1881,8 @@ paths:
     put:
       tags:
         - organization
+        - cc
+        - new
       summary: Update address for organization
       operationId: updateOrganizationAddress
       parameters:
@@ -1684,6 +1915,8 @@ paths:
     get:
       tags:
         - organization
+        - cc
+        - new
       summary: Get notes for organization
       operationId: getOrganizationNotes
       parameters:
@@ -1709,6 +1942,8 @@ paths:
     post:
       tags:
         - organization
+        - cc
+        - new
       summary: Create note for organization
       operationId: createOrganizationNote
       parameters:
@@ -1735,6 +1970,8 @@ paths:
     put:
       tags:
         - organization
+        - cc
+        - new
       summary: Update note for organization
       operationId: updateOrganizationNote
       parameters:
@@ -1766,6 +2003,8 @@ paths:
     delete:
       tags:
         - organization
+        - cc
+        - new
       summary: Delete note from organization
       operationId: deleteOrganizationNote
       parameters:
@@ -1794,6 +2033,8 @@ paths:
     get:
       tags:
         - organization
+        - cc
+        - new
       summary: Get customers for organization
       operationId: getOrganizationCustomers
       parameters:
@@ -1820,6 +2061,8 @@ paths:
     delete:
       tags:
         - organization
+        - cc
+        - new
       summary: Delete customer from organization
       operationId: deleteOrganizationCustomer
       parameters:
@@ -1844,10 +2087,123 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /product/search:
+    get:
+      tags:
+        - product
+        - cc
+        - tc
+        - exists
+      summary: Search for products
+      operationId: searchProducts
+      parameters: []
+      responses:
+        '200':
+          description: An array of Organizations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /product/{productId}:
+    get:
+      tags:
+        - product
+        - cc
+        - tc
+        - exists
+      summary: Get product details
+      operationId: productById
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: The id of the product
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /product/{productId}/availability:
+    get:
+      tags:
+        - product
+        - cc
+        - tc
+        - exists
+      summary: Get product availability
+      operationId: productAvailability
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: The id of the product
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /product/{productId}/recommendation:
+    get:
+      tags:
+        - product
+        - cc
+        - tc
+        - exists
+      summary: Get product recommendations
+      operationId: productRecommendations
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          description: The id of the product
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /delivery:
     get:
       tags:
         - other
+        - cc
+        - tc
+        - new
       summary: Get delivery options
       operationId: getDeliveryOptions
       parameters: []
@@ -1868,6 +2224,9 @@ paths:
     get:
       tags:
         - other
+        - cc
+        - tc
+        - new
       summary: Get branches
       operationId: getBranches
       parameters: []
@@ -1888,6 +2247,9 @@ paths:
     get:
       tags:
         - other
+        - cc
+        - tc
+        - new
       summary: Get shipping methods
       operationId: getShippingMethods
       parameters: []
@@ -1904,16 +2266,101 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /tcMessage:
+  /validateSupervisorCode:
     post:
       tags:
         - other
+        - tc
+        - new
+      summary: Validate supervisor code
+      operationId: validateSupervisorCode
+      parameters: []
+      responses:
+        '200':
+          description: Validation status
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /tradeCounter/message:
+    post:
+      tags:
+        - other
+        - cc
+        - new
       summary: Create trade counter message
       operationId: createTcMessage
       parameters: []
       responses:
         '200':
           description: Message creation status
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /tradeCounter/tillConfiguration:
+    get:
+      tags:
+        - other
+        - tc
+        - new
+      summary: Get till configurations
+      operationId: getTcTillConfiguration
+      parameters: []
+      responses:
+        '200':
+          description: An array of Till Configurations
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TillConfigurations'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - other
+        - tc
+        - new
+      summary: Update till configurations
+      operationId: updateTillConfiguration
+      parameters: []
+      responses:
+        '200':
+          description: Updated Till Configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TillConfiguration'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /tradeCounter/report:
+    get:
+      tags:
+        - other
+        - tc
+        - new
+      summary: Get trade counter report
+      operationId: getTcReport
+      parameters: []
+      responses:
+        '200':
+          description: Trade counter report
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
         default:
           description: unexpected error
           content:
@@ -1981,6 +2428,13 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/Promotion'
+    Product:
+      type: object
+      properties: {}
+    Products:
+      type: array
+      items:
+        $ref: '#/components/schemas/Product'
     DeliveryOption:
       type: object
       properties: {}
@@ -2002,6 +2456,16 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/ShippingMethod'
+    TillConfiguration:
+      type: object
+      properties: {}
+    TillConfigurations:
+      type: array
+      items:
+        $ref: '#/components/schemas/TillConfiguration'
+    Report:
+      type: object
+      properties: {}
     Error:
       type: object
       required:

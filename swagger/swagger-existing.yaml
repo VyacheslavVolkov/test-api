@@ -10,6 +10,26 @@ tags:
   - name: other
     description: Other operations
 paths:
+  /address/search:
+    get:
+      tags:
+        - other
+      summary: Search for addresses
+      operationId: searchAddresses
+      parameters: [ ]
+      responses:
+        '200':
+          description: An array of Addresses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Addresses'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /product/search:
     get:
       tags:
@@ -102,26 +122,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Products'
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /address/search:
-    get:
-      tags:
-        - other
-      summary: Search for addresses
-      operationId: searchAddresses
-      parameters: []
-      responses:
-        '200':
-          description: An array of Addresses
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Address'
         default:
           description: unexpected error
           content:

@@ -1,0 +1,965 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Customer Centre
+servers:
+  - url: http://screwfix.com/v1/
+tags:
+  - name: customer
+    description: Customer related operation
+  - name: customerOrder
+    description: Operations related to order
+  - name: other
+    description: Other operations
+paths:
+  /customer:
+    post:
+      tags:
+        - customer
+      summary: Create customer
+      operationId: createCustomer
+      parameters: []
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/search:
+    get:
+      tags:
+        - customer
+      summary: Search for customers
+      operationId: searchCustomers
+      parameters: []
+      responses:
+        '200':
+          description: An array of Customers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customers'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/{customerId}:
+    get:
+      tags:
+        - customer
+      summary: Get customer details
+      operationId: customerById
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - customer
+      summary: Update customer details
+      operationId: updateCustomer
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/{customerId}/address:
+    post:
+      tags:
+        - customer
+      summary: Create address for user
+      operationId: createCustomerAddress
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/{customerId}/address/{addressId}:
+    get:
+      tags:
+        - customer
+      summary: Get user address details
+      operationId: getCustomerAddress
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer to retrieve
+          schema:
+            type: string
+        - name: addressId
+          in: path
+          required: true
+          description: The id of the address to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - customer
+      summary: Update address for user
+      operationId: updateCustomerAddress
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer to update
+          schema:
+            type: string
+        - name: addressId
+          in: path
+          required: true
+          description: The id of the address to update
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/{customerId}/order:
+    get:
+      tags:
+        - customerOrder
+
+      summary: Get orders for user
+      operationId: getCustomerOrders
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An array of orders
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Orders'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - customerOrder
+      summary: Create order for user
+      operationId: createCustomerOrder
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/{customerId}/order/{orderId}:
+    get:
+      tags:
+        - customerOrder
+      summary: Get order for user
+      operationId: getCustomerOrder
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      tags:
+        - customerOrder
+      summary: Update order for user
+      operationId: updateCustomerOrder
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/{customerId}/order/{orderId}/submit:
+    put:
+      tags:
+        - customerOrder
+      summary: Submit order
+      operationId: submitOrder
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/{customerId}/order/{orderId}/releaseStock:
+    put:
+      tags:
+        - customerOrder
+      summary: Release stock for order order
+      operationId: releaseOrderStock
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/{customerId}/order/{orderId}/reserveStock:
+    put:
+      tags:
+        - customerOrder
+      summary: Reserve order stock
+      operationId: reserveOrderStock
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/{customerId}/order/{orderId}/address:
+    post:
+      tags:
+        - customerOrder
+      summary: Select address for order
+      operationId: selectOrderAddress
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/{customerId}/order/{orderId}/card:
+    post:
+      tags:
+        - customerOrder
+      summary: Select card for order
+      operationId: selectOrderCard
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Card'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/{customerId}/order/{orderId}/promotion:
+    get:
+      tags:
+        - customerOrder
+      summary: Get promotions for order
+      operationId: getOrderPromotions
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An array of promotions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Promotions'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - customerOrder
+      summary: Add promotion for order
+      operationId: addOrderPromotion
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/{customerId}/order/{orderId}/promotion/{promotionId}:
+    delete:
+      tags:
+        - customerOrder
+      summary: Delete promotion from order
+      operationId: deleteOrderPromotion
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+        - name: promotionId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/{customerId}/order/{orderId}/return:
+    get:
+      tags:
+        - customerOrder
+      summary: Get returns for order
+      operationId: getOrderReturns
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An array of returns
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Returns'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - customerOrder
+      summary: Add return to order
+      operationId: addOrderReturn
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Return'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/{customerId}/order/{orderId}/return/{returnId}:
+    get:
+      tags:
+        - customerOrder
+      summary: Get return details
+      operationId: getOrderReturn
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+        - name: returnId
+          in: path
+          required: true
+          description: The id of the return
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Return'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      tags:
+        - customerOrder
+      summary: Update return
+      operationId: updateOrderReturn
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+        - name: returnId
+          in: path
+          required: true
+          description: The id of the return
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Return'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - customerOrder
+      summary: Delete return from order
+      operationId: deleteOrderReturn
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+        - name: returnId
+          in: path
+          required: true
+          description: The id of the return
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/{customerId}/order/{orderId}/return/{returnId}/address:
+    post:
+      tags:
+        - customerOrder
+      summary: Select address for return
+      operationId: selectReturnAddress
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+        - name: returnId
+          in: path
+          required: true
+          description: The id of the return
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /customer/{customerId}/order/{orderId}/return/{returnId}/complete:
+    post:
+      tags:
+        - customerOrder
+      summary: Complete return
+      operationId: completeReturn
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          description: The id of the customer
+          schema:
+            type: string
+        - name: orderId
+          in: path
+          required: true
+          description: The id of the order
+          schema:
+            type: string
+        - name: returnId
+          in: path
+          required: true
+          description: The id of the return
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Return'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /order/search:
+    get:
+      tags:
+        - other
+      summary: Search for orders (include kiosk orders)
+      operationId: searchOrders
+      parameters: []
+      responses:
+        '200':
+          description: An array of Orders
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Orders'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /delivery:
+    get:
+      tags:
+        - other
+      summary: Get delivery options
+      operationId: getDeliveryOptions
+      parameters: []
+      responses:
+        '200':
+          description: An array of DeliveryOptions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeliveryOptions'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /branch:
+    get:
+      tags:
+        - other
+      summary: Get branches
+      operationId: getBranches
+      parameters: []
+      responses:
+        '200':
+          description: An array of Branches
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Branches'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /shipping:
+    get:
+      tags:
+        - other
+      summary: Get shipping methods
+      operationId: getShippingMethods
+      parameters: []
+      responses:
+        '200':
+          description: An array of Shipping Methods
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingMethods'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Card:
+      type: object
+      properties: {}
+    Customer:
+      type: object
+      properties: {}
+    Customers:
+      type: array
+      items:
+        $ref: '#/components/schemas/Customer'
+    Address:
+      type: object
+      properties: {}
+    Addresses:
+      type: array
+      items:
+        $ref: '#/components/schemas/Address'
+    Order:
+      type: object
+      properties: {}
+    Orders:
+      type: array
+      items:
+        $ref: '#/components/schemas/Order'
+    Promotion:
+      type: object
+      properties: {}
+    Promotions:
+      type: array
+      items:
+        $ref: '#/components/schemas/Promotion'
+    DeliveryOption:
+      type: object
+      properties: {}
+    DeliveryOptions:
+      type: array
+      items:
+        $ref: '#/components/schemas/DeliveryOption'
+    Branch:
+      type: object
+      properties: {}
+    Branches:
+      type: array
+      items:
+        $ref: '#/components/schemas/Branch'
+    ShippingMethod:
+      type: object
+      properties: {}
+    ShippingMethods:
+      type: array
+      items:
+        $ref: '#/components/schemas/ShippingMethod'
+    Return:
+      type: object
+      properties: {}
+    Returns:
+      type: array
+      items:
+        $ref: '#/components/schemas/Return'
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
